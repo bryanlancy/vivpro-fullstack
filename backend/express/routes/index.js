@@ -11,9 +11,18 @@ for (const prop in playlist) {
 }
 
 router.get('/playlist', (req, res) => {
-    res.json(normal)
+    //page is 0-index
+    const { songs_per_page, page } = req.query
+    const response = {}
+    if (songs_per_page) {
+        const start = page * songs_per_page || 0
+        for (let i = start; i < start + parseInt(songs_per_page); i++) {
+            response[i] = { ...normal[i] }
+        }
+    }
+    else response = normal
+    res.json(response)
 })
-
 
 
 module.exports = { apiRouter: router }
