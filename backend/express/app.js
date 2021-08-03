@@ -14,7 +14,6 @@ app.use((_req, _res, next) => {
         message: err.message,
         error: "The requested resource couldn't be found.",
     })
-
 })
 
 app.listen(port, () => { console.log(`Listening on port ${port}`) })
