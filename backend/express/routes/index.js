@@ -9,7 +9,7 @@ for (const prop in playlist) {
         normal[song] ? normal[song][prop] = value : normal[song] = { [prop]: value }
     }
 }
-c
+
 router.get('/playlist', (req, res) => {
     res.json(normal)
 })
