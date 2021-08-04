@@ -9,7 +9,9 @@ function App() {
     <div className="App">
       <SongSearch />
       <SongTable />
+      <SongChart type='scatter' />
       <SongChart type='histogram' />
+      <SongChart type='bar' />
     </div>
   );
 }
