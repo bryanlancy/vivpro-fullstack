@@ -25,7 +25,7 @@ router.get('/playlist', (req, res) => {
         }
     }
     else playlist = normal
-    res.status(200).json({ playlist })
+    res.status(200).json({ playlist, totalPages: Math.ceil(Object.keys(normal).length / songs_per_page) })
 })
 
 router.get('/search', (req, res) => {

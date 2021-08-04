@@ -1,21 +1,11 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import './App.css';
-
-import { loadSongsThunk } from './store/songs'
-
+import SongTable from './components/SongTable';
 
 function App() {
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(loadSongsThunk())
-  }, [])
-
   return (
     <div className="App">
-
+      <SongTable />
     </div>
   );
 }

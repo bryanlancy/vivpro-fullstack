@@ -10,20 +10,17 @@ const loadSongs = (payload) => {
 export const loadSongsThunk = () => async dispatch => {
     const res = await fetch('/api/playlist')
     if (res.ok) {
-        const { playlist } = await res.json()
+        const { playlist, totalPages } = await res.json()
         if (playlist) dispatch(loadSongs(playlist))
+        return totalPages
     }
 }
 
-
-const initialState = {}
-export default function reducer(state = initialState, action) {
-    let newState = { ...state }
+export default function reducer(state = {}, action) {
     switch (action.type) {
         case LOAD_SONGS:
-            return { ...action.payload }
+            return { ...state, ...action.payload }
         default:
             return state
-            break;
     }
 }
