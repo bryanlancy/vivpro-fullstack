@@ -8,11 +8,11 @@ const loadSongs = (payload) => {
     }
 }
 export const loadSongsThunk = () => async dispatch => {
-    const res = await fetch('/api/playlist')
+    const res = await fetch(`/api/playlist`)
     if (res.ok) {
-        const { playlist, totalPages } = await res.json()
+        const { playlist } = await res.json()
         if (playlist) dispatch(loadSongs(playlist))
-        return totalPages
+        return playlist //subtract for 0-index pagination
     }
 }
 
