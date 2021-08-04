@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
 import { ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ScatterChart, Scatter, BarChart, Bar } from 'recharts'
 
+import './SongChart.css'
+
 export default function SongChart({ type }) {
     const { songs } = useSelector(state => state)
     const songArr = Object.values(songs)
@@ -11,9 +13,8 @@ export default function SongChart({ type }) {
         case 'histogram':
             title = 'Duration'
             const durationSort = songArr.sort((a, b) => a.duration_ms - b.duration_ms)
-
+            const numGroups = 10
             if (durationSort.length > 0) {
-                const numGroups = 10
                 const min = durationSort[0]?.duration_ms
                 const max = durationSort[durationSort.length - 1]?.duration_ms
                 const breaks = Array.from({ length: numGroups - 1 }, (v, i) => (i + 1) * ((max - min) / numGroups) + min)
@@ -27,8 +28,7 @@ export default function SongChart({ type }) {
                 while (i < numGroups) {
                     const sec = toSec(breaks[i])
                     const groupData = {
-
-                        label: sec ? `< ${sec}sec` : `> ${toSec(breaks[i - 1])}sec`, break: breaks[i], count: 0
+                        label: sec ? `${sec}sec` : ``, break: breaks[i], count: 0
                     }
                     while (durationSort[j] && !(durationSort[j].duration_ms > groupData.break)) {
                         groupData.count++
@@ -38,11 +38,21 @@ export default function SongChart({ type }) {
                     i++
                 }
             }
+            function CustomLabel({ x, y, payload }) {
+                return (
+                    <g transform={`translate(${x},${y})`}>
+                        <text y={10} x="50"
+                            textAnchor="start"
+                            fill="#666">{payload.value}</text>
+                    </g>
+                );
+            }
+
             chart = (
-                <BarChart data={data}>
+                <BarChart data={data} barCategoryGap={1} className="histogram">
                     <CartesianGrid />
                     <Tooltip />
-                    <XAxis dataKey="label" />
+                    <XAxis dataKey="label" tickLine={false} tick={<CustomLabel />} />
                     <YAxis unit=' songs' />
                     <Bar dataKey="count" fill="#6da30a" />
                 </BarChart >
