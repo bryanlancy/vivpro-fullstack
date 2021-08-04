@@ -5,9 +5,13 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"install": "npm --prefix backend install backend && npm --prefix frontend install frontend"
+		"install": "(cd backend/express && npm install) && (cd frontend && npm install)",
+		"startExpress": "(cd backend/express && npm start) & (cd frontend && npm start)"
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
 }
