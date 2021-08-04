@@ -17,7 +17,7 @@ for (const prop in playlist) {
 router.get('/playlist', (req, res) => {
     //page is 0-index
     const { songs_per_page, page } = req.query
-    const playlist = {}
+    let playlist = {}
     if (songs_per_page) {
         const start = page * songs_per_page || 0
         for (let i = start; i < start + parseInt(songs_per_page); i++) {
