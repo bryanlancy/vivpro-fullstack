@@ -5,9 +5,9 @@ import { loadSongsThunk } from '../../store/songs'
 
 import { CSVLink } from 'react-csv'
 
+import SongRating from '../SongRating';
+
 export default function SongTable() {
-
-
 
     const dispatch = useDispatch()
     const songs = useSelector(state => state.songs)         // table - normalize song data in redux
@@ -19,7 +19,7 @@ export default function SongTable() {
     const [columns, setColumns] = useState([])              // table - header row labels
     const [jsonList, setJsonList] = useState([])            // table - array of table data in json format
     const [sortColumn, setSortColumn] = useState('index')   // table - column to sort by
-    const [sortAsc, setSortAsc] = useState(true)           // table - sorting direction
+    const [sortAsc, setSortAsc] = useState(true)            // table - sorting direction
 
     function updatePage(newPage) {
         if (newPage <= totalPages && newPage >= 0) setPage(newPage)
@@ -74,6 +74,7 @@ export default function SongTable() {
                         return <th onClick={() => sortTable(label)} key={`td-${label}`}>{label}</th>
                     return null
                 })}
+                <th onClick={() => sortTable('rating')}>rating</th>
             </tr>)
         }
     })
@@ -90,10 +91,11 @@ export default function SongTable() {
                         <tr key={`row-${i}`}>
                             <td>{sortedSongs[i].index}</td>
                             {columns.map(prop => {
-                                if (prop !== 'index')
-                                    return <td key={`${i}-prop-${prop}`}>{sortedSongs[i][prop]}</td>
-                                return null
+                                if (prop === 'index')
+                                    return null
+                                return <td key={`${i}-prop-${prop}`}>{sortedSongs[i][prop]}</td>
                             })}
+                            <td><SongRating id={sortedSongs[i].index} /></td>
                         </tr>
                     )
                     listJSON.push({ index: i, ...songs[i] })
