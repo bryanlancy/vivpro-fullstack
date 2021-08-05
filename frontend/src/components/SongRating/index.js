@@ -11,7 +11,14 @@ export default function SongRating({ id }) {
 
 
     const [hovered, setHovered] = useState(0)
-    const [rating, setRating] = useState(song.rating || 0)
+    const [rating, setRating] = useState(0)
+
+
+    useEffect(() => {
+        setRating(song.rating)
+    }, [song])
+
+
 
     function starHover(num) {
         setHovered(num)
