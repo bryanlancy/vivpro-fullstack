@@ -7,6 +7,8 @@ import { CSVLink } from 'react-csv'
 
 import SongRating from '../SongRating';
 
+import './SongTable.css'
+
 export default function SongTable() {
 
     const dispatch = useDispatch()
@@ -56,6 +58,8 @@ export default function SongTable() {
         }
     }, [songs])
 
+
+    //Sort songs by column from songs object
     const sortedSongs = useMemo(() => {
         setPage(0)
         const textSort = ['id', 'title']
@@ -73,9 +77,17 @@ export default function SongTable() {
                 {columns.map(label => {
                     if (ignore.includes(label))
                         return null
-                    return <th onClick={() => sortTable(label)} key={`td-${label}`}>{label}</th>
+                    return <th
+                        className={`playlist__table-${label}`}
+                        onClick={() => sortTable(label)}
+                        key={`td-${label}`}
+                    >
+                        {label}
+                    </th>
                 })}
-                <th onClick={() => sortTable('rating')}>rating</th>
+                <th className="playlist__table-rating"
+                // onClick={() => sortTable('rating')} //!Sort not working for rating
+                >rating</th>
             </tr>)
         }
     })

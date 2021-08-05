@@ -1,0 +1,48 @@
+.playlist__table {
+	margin-top: 72px;
+
+	border-radius: 4px;
+	padding: 8px;
+
+	width: 100%;
+
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+.playlist__table :is(td, th) {
+	text-align: center;
+}
+.playlist__table th {
+	height: 60px;
+	transform: rotate(-60deg);
+}
+.playlist__table th:hover {
+	cursor: pointer;
+}
+.playlist__table tbody td {
+	height: 50px;
+	max-height: 50px;
+}
+.playlist__table td {
+	border: var(--themeBorder);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 4px;
+}
+:is(.playlist__table-title, .playlist__table-id) {
+	width: 75px;
+	min-width: 75px;
+}
+.playlist__table-rating {
+	width: 100px;
+	min-width: 100px;
+}
+.playlist__table-rating:hover {
+	/*! BROKEN RATING SORT */
+	cursor: default !important;
+}
+
+.playlist__pagination {
+	display: flex;
+	justify-content: center;
+}
