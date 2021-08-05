@@ -20,6 +20,7 @@ export default function SongRating({ id }) {
 
 
     useEffect(() => {
+        setHovered(0)
         setRating(song.rating)
     }, [song])
 
