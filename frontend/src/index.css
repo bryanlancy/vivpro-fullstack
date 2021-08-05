@@ -3,7 +3,8 @@
 	padding: 0;
 	box-sizing: border-box;
 
-	--themeColorPrimary: rgb(21, 130, 255);
+	--themeColorPrimary: #1582ff;
+	--themeColorPrimaryLight: #a4cfff;
 	--themeBorder: 1px solid var(--themeColorPrimary);
 	--themeColorText: #fff;
 }

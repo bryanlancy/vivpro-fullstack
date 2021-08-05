@@ -120,6 +120,9 @@ export default function SongTable() {
         }
     }, [page, perPage, songs, columns, sortedSongs])
 
+
+    console.log(page + 1, totalPages)
+
     return (
         <div className="playlist">
             <table className="playlist__table">
@@ -131,9 +134,10 @@ export default function SongTable() {
                 </tbody>
             </table>
             <div className="playlist__pagination">
+                <CSVLink className="playlist__download" data={jsonList} filename={'song_list.csv'}>Download Table</CSVLink>
                 <button onClick={() => updatePage(page - 1)} disabled={page <= 0}>Previous Page</button>
                 <p>Page: {page + 1}</p>
-                <button onClick={() => updatePage(page + 1)} disabled={page >= totalPages}>Next Page</button>
+                <button onClick={() => updatePage(page + 1)} disabled={(page + 1) >= totalPages}>Next Page</button>
                 <label>
                     Results per page
                     <select value={perPage} onChange={updatePageCount}>
@@ -141,7 +145,6 @@ export default function SongTable() {
                     </select>
                 </label>
             </div>
-            <CSVLink data={jsonList} filename={'song_list.csv'}>Download Table</CSVLink>
         </div >
     )
 }

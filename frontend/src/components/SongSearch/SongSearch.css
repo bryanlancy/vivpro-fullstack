@@ -45,8 +45,6 @@
 
 	border: var(--themeBorder);
 	border-radius: 4px;
-	background-color: var(--themeColorPrimary);
-	color: var(--themeColorText);
 }
 
 .search__result--error {
@@ -67,5 +65,5 @@
 .search__data :not(:first-child) {
 	margin-top: 4px;
 	padding-top: 4px;
-	border-top: 1px solid #fff;
+	border-top: var(--themeBorder);
 }
