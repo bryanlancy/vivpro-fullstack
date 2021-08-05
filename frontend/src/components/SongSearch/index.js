@@ -1,12 +1,14 @@
 import { useMemo, useState } from "react"
-
+import "./SongSearch.css"
 export default function SongSearch() {
-
     const [search, setSearch] = useState("")
     const [searchResult, setSearchResult] = useState()
 
     async function fetchSong() {
         if (search) {
+
+
+
             const res = await fetch(`/api/search?title=${search}`)
             if (res.ok) {
                 const { song } = await res.json()
@@ -19,18 +21,17 @@ export default function SongSearch() {
     let resultDiv = useMemo(() => {
         if (searchResult) {
             const propList = []
+
             for (const prop in searchResult) {
-                propList.push(
-                    <label key={`search-prop-${prop}`}>
-                        {prop}
-                        <p>{searchResult[prop]}</p>
-                    </label>
-                )
+                propList.push(<label key={`search-prop-${prop}`}>{prop}<p>{searchResult[prop]}</p></label>)
             }
             return (
                 <div className="search__result">
-                    <p>Found!</p>
-                    {propList}
+                    {/* <p>Found!</p> */}
+                    <div className="search__data">
+                        {propList}
+                    </div>
+                    <iframe src={`https://open.spotify.com/embed/track/${searchResult.id}`} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
             )
         } else {

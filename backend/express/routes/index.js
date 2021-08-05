@@ -37,6 +37,7 @@ router.get('/search', (req, res) => {
 router.put('/songs/:id', (req, res) => {
     const { id } = req.params
     const body = req.body
+    console.log(id, body)
 
     let response
     if (normal[id] && body) {

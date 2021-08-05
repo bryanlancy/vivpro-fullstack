@@ -65,14 +65,15 @@ export default function SongTable() {
     }, [songs, sortColumn, sortAsc])
 
     //Check if labels are set, then load table header
+    const ignore = ['index', 'rating']
     let songHeader = useMemo(() => {
         if (columns) {
             return (<tr>
                 <th onClick={() => sortTable('index')}>index</th>
                 {columns.map(label => {
-                    if (label !== 'index')
-                        return <th onClick={() => sortTable(label)} key={`td-${label}`}>{label}</th>
-                    return null
+                    if (ignore.includes(label))
+                        return null
+                    return <th onClick={() => sortTable(label)} key={`td-${label}`}>{label}</th>
                 })}
                 <th onClick={() => sortTable('rating')}>rating</th>
             </tr>)
@@ -91,7 +92,7 @@ export default function SongTable() {
                         <tr key={`row-${i}`}>
                             <td>{sortedSongs[i].index}</td>
                             {columns.map(prop => {
-                                if (prop === 'index')
+                                if (ignore.includes(prop))
                                     return null
                                 return <td key={`${i}-prop-${prop}`}>{sortedSongs[i][prop]}</td>
                             })}
