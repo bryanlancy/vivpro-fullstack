@@ -4,33 +4,24 @@ import { useSelector, useDispatch } from "react-redux"
 import { updateSongThunk } from "../../store/songs"
 
 export default function SongRating({ id }) {
-
     const dispatch = useDispatch()
-
     const { [id]: song } = useSelector(state => state.songs)
-
 
     const [hovered, setHovered] = useState(0)
     const [rating, setRating] = useState(0)
+
+    function starHover(num) {
+        setHovered(num)
+    }
+
+    async function updateRating(num) {
+        await dispatch(updateSongThunk(id, { rating: num }))
+    }
 
 
     useEffect(() => {
         setRating(song.rating)
     }, [song])
-
-
-
-    function starHover(num) {
-        setHovered(num)
-    }
-    async function updateRating(num) {
-        const res = await dispatch(updateSongThunk(id, { rating: num }))
-        if (res) {
-            const { song: updated } = res
-            const { rating: newRating } = updated
-            setRating(newRating)
-        }
-    }
 
 
     if (!song) return null
