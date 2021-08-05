@@ -1,0 +1,24 @@
+.search__input {
+	display: flex;
+	justify-content: center;
+}
+
+.search__input > label > p {
+}
+
+.search__input > label {
+	margin-right: 4px;
+}
+
+.search__result {
+	display: flex;
+	justify-content: space-between;
+}
+.search__data {
+	width: 100%;
+	margin: 0 8px;
+}
+.search__data > label {
+	display: flex;
+	justify-content: space-between;
+}

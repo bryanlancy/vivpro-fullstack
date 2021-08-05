@@ -1,21 +1,17 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import './App.css';
-
-import { loadSongsThunk } from './store/songs'
-
+import SongTable from './components/SongTable';
+import SongSearch from './components/SongSearch'
+import SongChart from './components/SongChart';
 
 function App() {
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(loadSongsThunk())
-  }, [])
-
   return (
     <div className="App">
-
+      <SongSearch />
+      <SongTable />
+      <SongChart type='scatter' />
+      <SongChart type='histogram' />
+      <SongChart type='bar' />
     </div>
   );
 }
