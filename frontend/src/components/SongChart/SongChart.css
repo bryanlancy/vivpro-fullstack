@@ -1,0 +1,10 @@
+.song-chart {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	margin-top: 24px;
+}
+.song-chart__title {
+	margin-bottom: 8px;
+}

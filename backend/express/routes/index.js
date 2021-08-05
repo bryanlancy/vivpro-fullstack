@@ -13,7 +13,9 @@ for (const prop in playlist) {
         }
     }
 }
-
+for (const song in normal) {
+    normal[song].rating = 0
+}
 router.get('/playlist', (req, res) => {
     //page is 0-index
     const { songs_per_page, page } = req.query
@@ -37,7 +39,6 @@ router.get('/search', (req, res) => {
 router.put('/songs/:id', (req, res) => {
     const { id } = req.params
     const body = req.body
-    console.log(id, body)
 
     let response
     if (normal[id] && body) {

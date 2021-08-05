@@ -31,12 +31,12 @@ export default function SongSearch() {
                     <div className="search__data">
                         {propList}
                     </div>
-                    <iframe src={`https://open.spotify.com/embed/track/${searchResult.id}`} width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    <iframe title="search-player" src={`https://open.spotify.com/embed/track/${searchResult.id}`} width="300" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
             )
         } else {
             return (
-                <div className="search__result">
+                <div className="search__result--error">
                     <p>Nothing found.</p>
                 </div>
             )
@@ -45,9 +45,12 @@ export default function SongSearch() {
 
     return (
         <div className="search">
-            <div className="search__input">
-                <label htmlFor="">Search<input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="Enter song title" /></label>
-                <button onClick={fetchSong}>Get Song</button>
+            <div className="search__bar">
+                <label >Search</label>
+                <div className="search__input">
+                    <input value={search} onChange={e => setSearch(e.target.value)} type="text" placeholder="Enter song title" />
+                    <button onClick={fetchSong}>Get Song</button>
+                </div>
             </div>
             {resultDiv}
         </div >

@@ -1,0 +1,84 @@
+.playlist__table {
+	margin-top: 72px;
+
+	border-radius: 4px;
+	padding: 8px;
+
+	width: 100%;
+
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+.playlist__table :is(td, th) {
+	text-align: center;
+}
+.playlist__table th {
+	height: 85px;
+	transform: rotate(-60deg);
+	padding: 4px;
+}
+.playlist__table th:hover {
+	cursor: pointer;
+}
+.playlist__table tbody td {
+	height: 50px;
+	max-height: 50px;
+}
+.playlist__table td {
+	border: var(--themeBorder);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding: 4px;
+}
+:is(.playlist__table-title, .playlist__table-id) {
+	width: 75px;
+	min-width: 75px;
+}
+.playlist__table-index {
+	width: 32px;
+	min-width: 32px;
+}
+.playlist__table-rating {
+	width: 100px;
+	min-width: 100px;
+}
+
+.playlist__pagination {
+	position: relative;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin-top: 8px;
+}
+
+.playlist__pagination p {
+	margin: 0 8px;
+}
+
+.playlist__pagination label {
+	position: absolute;
+	right: 8px;
+}
+.playlist__download {
+	position: absolute;
+	left: 8px;
+}
+
+:is(.playlist__pagination button, .playlist__download) {
+	cursor: pointer;
+	background-color: var(--themeColorPrimary);
+	border: none;
+	text-decoration: none;
+	color: #fff;
+	padding: 8px;
+	border-radius: 8px;
+}
+
+.playlist__pagination button:disabled {
+	background-color: var(--themeColorPrimaryLight);
+}
+.playlist__pagination button:disabled:hover {
+	cursor: not-allowed;
+}

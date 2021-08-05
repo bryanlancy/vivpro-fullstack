@@ -7,6 +7,8 @@ import { CSVLink } from 'react-csv'
 
 import SongRating from '../SongRating';
 
+import './SongTable.css'
+
 export default function SongTable() {
 
     const dispatch = useDispatch()
@@ -17,7 +19,7 @@ export default function SongTable() {
     const pagCountOptions = [5, 10, 25, 50]                 // pagination - results per page options
     const [totalPages, setTotalPages] = useState(1)         // pagination - total pages
     const [columns, setColumns] = useState([])              // table - header row labels
-    const [jsonList, setJsonList] = useState([])            // table - array of table data in json format
+    const [jsonList, setJsonList] = useState([])            // table - array of table data in json format, for CSV
     const [sortColumn, setSortColumn] = useState('index')   // table - column to sort by
     const [sortAsc, setSortAsc] = useState(true)            // table - sorting direction
 
@@ -56,6 +58,8 @@ export default function SongTable() {
         }
     }, [songs])
 
+
+    //Sort songs by column from songs object
     const sortedSongs = useMemo(() => {
         setPage(0)
         const textSort = ['id', 'title']
@@ -69,13 +73,21 @@ export default function SongTable() {
     let songHeader = useMemo(() => {
         if (columns) {
             return (<tr>
-                <th onClick={() => sortTable('index')}>index</th>
+                <th className="playlist__table-index" onClick={() => sortTable('index')}>index</th>
                 {columns.map(label => {
                     if (ignore.includes(label))
                         return null
-                    return <th onClick={() => sortTable(label)} key={`td-${label}`}>{label}</th>
+                    return <th
+                        className={`playlist__table-${label}`}
+                        onClick={() => sortTable(label)}
+                        key={`td-${label}`}
+                    >
+                        {label}
+                    </th>
                 })}
-                <th onClick={() => sortTable('rating')}>rating</th>
+                <th className="playlist__table-rating"
+                    onClick={() => sortTable('rating')}
+                >rating</th>
             </tr>)
         }
     })
@@ -88,15 +100,16 @@ export default function SongTable() {
             const start = page * perPage || 0
             for (let i = start; i < start + perPage; i++) {
                 if (sortedSongs[i]) {
+                    const { index } = sortedSongs[i]
                     list.push(
                         <tr key={`row-${i}`}>
-                            <td>{sortedSongs[i].index}</td>
+                            <td>{index}</td>
                             {columns.map(prop => {
                                 if (ignore.includes(prop))
                                     return null
                                 return <td key={`${i}-prop-${prop}`}>{sortedSongs[i][prop]}</td>
                             })}
-                            <td><SongRating id={sortedSongs[i].index} /></td>
+                            <td><SongRating id={index} /></td>
                         </tr>
                     )
                     listJSON.push({ index: i, ...songs[i] })
@@ -106,6 +119,9 @@ export default function SongTable() {
             return list
         }
     }, [page, perPage, songs, columns, sortedSongs])
+
+
+    console.log(page + 1, totalPages)
 
     return (
         <div className="playlist">
@@ -118,9 +134,10 @@ export default function SongTable() {
                 </tbody>
             </table>
             <div className="playlist__pagination">
+                <CSVLink className="playlist__download" data={jsonList} filename={'song_list.csv'}>Download Table</CSVLink>
                 <button onClick={() => updatePage(page - 1)} disabled={page <= 0}>Previous Page</button>
                 <p>Page: {page + 1}</p>
-                <button onClick={() => updatePage(page + 1)} disabled={page >= totalPages}>Next Page</button>
+                <button onClick={() => updatePage(page + 1)} disabled={(page + 1) >= totalPages}>Next Page</button>
                 <label>
                     Results per page
                     <select value={perPage} onChange={updatePageCount}>
@@ -128,7 +145,6 @@ export default function SongTable() {
                     </select>
                 </label>
             </div>
-            <CSVLink data={jsonList} filename={'song_list.csv'}>Download Table</CSVLink>
         </div >
     )
 }

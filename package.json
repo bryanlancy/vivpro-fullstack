@@ -4,9 +4,10 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
+		"easy-start": "npm run install && npm run start",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"install": "(cd backend/express && npm install) && (cd frontend && npm install)",
-		"startExpress": "(cd backend/express && npm start) & (cd frontend && npm start)"
+		"start": "(cd backend/express && npm start) & (cd frontend && npm start)"
 	},
 	"keywords": [],
 	"author": "",
