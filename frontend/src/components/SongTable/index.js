@@ -19,7 +19,7 @@ export default function SongTable() {
     const pagCountOptions = [5, 10, 25, 50]                 // pagination - results per page options
     const [totalPages, setTotalPages] = useState(1)         // pagination - total pages
     const [columns, setColumns] = useState([])              // table - header row labels
-    const [jsonList, setJsonList] = useState([])            // table - array of table data in json format
+    const [jsonList, setJsonList] = useState([])            // table - array of table data in json format, for CSV
     const [sortColumn, setSortColumn] = useState('index')   // table - column to sort by
     const [sortAsc, setSortAsc] = useState(true)            // table - sorting direction
 
@@ -73,7 +73,7 @@ export default function SongTable() {
     let songHeader = useMemo(() => {
         if (columns) {
             return (<tr>
-                <th onClick={() => sortTable('index')}>index</th>
+                <th className="playlist__table-index" onClick={() => sortTable('index')}>index</th>
                 {columns.map(label => {
                     if (ignore.includes(label))
                         return null
@@ -86,7 +86,7 @@ export default function SongTable() {
                     </th>
                 })}
                 <th className="playlist__table-rating"
-                // onClick={() => sortTable('rating')} //!Sort not working for rating
+                    onClick={() => sortTable('rating')}
                 >rating</th>
             </tr>)
         }
@@ -100,15 +100,16 @@ export default function SongTable() {
             const start = page * perPage || 0
             for (let i = start; i < start + perPage; i++) {
                 if (sortedSongs[i]) {
+                    const { index } = sortedSongs[i]
                     list.push(
                         <tr key={`row-${i}`}>
-                            <td>{sortedSongs[i].index}</td>
+                            <td>{index}</td>
                             {columns.map(prop => {
                                 if (ignore.includes(prop))
                                     return null
                                 return <td key={`${i}-prop-${prop}`}>{sortedSongs[i][prop]}</td>
                             })}
-                            <td><SongRating id={sortedSongs[i].index} /></td>
+                            <td><SongRating id={index} /></td>
                         </tr>
                     )
                     listJSON.push({ index: i, ...songs[i] })

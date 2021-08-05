@@ -15,6 +15,7 @@
 .playlist__table th {
 	height: 60px;
 	transform: rotate(-60deg);
+	padding: 4px;
 }
 .playlist__table th:hover {
 	cursor: pointer;
@@ -33,13 +34,13 @@
 	width: 75px;
 	min-width: 75px;
 }
+.playlist__table-index {
+	width: 32px;
+	min-width: 32px;
+}
 .playlist__table-rating {
 	width: 100px;
 	min-width: 100px;
-}
-.playlist__table-rating:hover {
-	/*! BROKEN RATING SORT */
-	cursor: default !important;
 }
 
 .playlist__pagination {

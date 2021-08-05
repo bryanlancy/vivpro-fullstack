@@ -31,7 +31,7 @@ export default function SongSearch() {
                     <div className="search__data">
                         {propList}
                     </div>
-                    <iframe src={`https://open.spotify.com/embed/track/${searchResult.id}`} width="300" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    <iframe title="search-player" src={`https://open.spotify.com/embed/track/${searchResult.id}`} width="300" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                 </div>
             )
         } else {
